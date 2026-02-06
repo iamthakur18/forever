@@ -13,9 +13,7 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(45deg, #ff6b9d, #ff8e9b, #ffa8a8, #c2185b, #e91e63);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
+            background: #ff1744;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -25,6 +23,8 @@
             position: relative;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
+            margin: 0;
+            padding: 0;
         }
 
         body::before {
@@ -34,21 +34,67 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><text x="10" y="15" text-anchor="middle" fill="%23ff1744" opacity="0.1" font-size="12">♥</text></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
+            background: #ff1744;
+            background-image: linear-gradient(135deg, #ff0844 0%, #ff1744 20%, #ff4569 40%, #e91e63 60%, #c2185b 80%, #ff0066 100%);
+            pointer-events: none;
+            z-index: -3;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 105, 180, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 20, 147, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 0, 102, 0.3) 0%, transparent 50%);
+            animation: floatingGlow 8s ease-in-out infinite;
+            -webkit-animation: floatingGlow 8s ease-in-out infinite;
             pointer-events: none;
             z-index: -2;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 105, 180, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 20, 147, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(255, 0, 102, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: floatingGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes floatingGlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @-webkit-keyframes floatingGlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
         .container {
             text-align: center;
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 30px;
+            -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 50px rgba(255, 0, 68, 0.3), 
+                        0 5px 15px rgba(0, 0, 0, 0.2), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
             max-width: 700px;
             margin: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 182, 193, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -60,7 +106,8 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 192, 203, 0.2), transparent);
+            -webkit-animation: shimmer 3s ease-in-out infinite;
             animation: shimmer 3s ease-in-out infinite;
             pointer-events: none;
         }
@@ -195,12 +242,13 @@
         .final-question {
             margin: 2rem 0;
             padding: 2.5rem;
-            background: linear-gradient(135deg, rgba(255, 23, 68, 0.3), rgba(233, 30, 99, 0.2));
+            background: linear-gradient(135deg, rgba(255, 0, 68, 0.4), rgba(255, 20, 147, 0.3));
             border-radius: 25px;
-            border: 2px solid rgba(255, 23, 68, 0.6);
+            border: 2px solid rgba(255, 20, 147, 0.7);
             position: relative;
             overflow: hidden;
             animation: finalGlow 2s ease-in-out infinite;
+            -webkit-animation: finalGlow 2s ease-in-out infinite;
         }
 
         .final-question::before {
@@ -210,9 +258,10 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, #ff1744, #e91e63, #ff1744, #e91e63);
+            background: linear-gradient(45deg, #ff0066, #ff1744, #ff0066, #ff1744);
             background-size: 400% 400%;
             animation: gradientBorder 3s ease infinite;
+            -webkit-animation: gradientBorder 3s ease infinite;
             border-radius: 25px;
             z-index: -1;
         }
@@ -452,10 +501,19 @@
             color: #ff1744;
             font-size: 1.5rem;
             animation: float 6s ease-in-out infinite;
-            opacity: 0.7;
+            -webkit-animation: float 6s ease-in-out infinite;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 5px rgba(255, 23, 68, 0.5));
+            -webkit-filter: drop-shadow(0 0 5px rgba(255, 23, 68, 0.5));
         }
 
         @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @-webkit-keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
@@ -466,14 +524,32 @@
             100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
+        @-webkit-keyframes shimmer {
+            0% { -webkit-transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { -webkit-transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
         @keyframes titleGlow {
             0%, 100% { 
                 text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.5);
                 transform: scale(1);
+                -webkit-transform: scale(1);
             }
             50% { 
                 text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 255, 255, 0.8);
                 transform: scale(1.02);
+                -webkit-transform: scale(1.02);
+            }
+        }
+
+        @-webkit-keyframes titleGlow {
+            0%, 100% { 
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.5);
+                -webkit-transform: scale(1);
+            }
+            50% { 
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 255, 255, 0.8);
+                -webkit-transform: scale(1.02);
             }
         }
 
@@ -489,8 +565,13 @@
         }
 
         @keyframes finalGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 23, 68, 0.5); }
-            50% { box-shadow: 0 0 40px rgba(255, 23, 68, 0.8); }
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 0, 102, 0.6), 0 0 60px rgba(255, 20, 147, 0.4); }
+            50% { box-shadow: 0 0 50px rgba(255, 0, 102, 0.9), 0 0 80px rgba(255, 20, 147, 0.6); }
+        }
+
+        @-webkit-keyframes finalGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 0, 102, 0.6), 0 0 60px rgba(255, 20, 147, 0.4); }
+            50% { box-shadow: 0 0 50px rgba(255, 0, 102, 0.9), 0 0 80px rgba(255, 20, 147, 0.6); }
         }
 
         @keyframes gradientBorder {
@@ -711,7 +792,7 @@
         </h1>
         
         <div class="intro">
-            <p class="greeting"> My Pucchuu 😘</p>
+            <p class="greeting">Hey Rishav 🐣💕</p>
             <p class="confession">Quick confession 🙈 Every smile of yours, every little moment, somehow makes my world brighter. So today, I decided to stop overthinking and just ask you something special 💌</p>
             <p class="teaser">But first… a few very important questions 😏👇</p>
         </div>
@@ -887,4 +968,3 @@
     </script>
 </body>
 </html>
-
